@@ -21,7 +21,7 @@ chmod +x verify-md5-gz.sh
 
 #### Help
 
-Run the scripts without arguments to print the help page.
+Run the script without arguments to print the help page.
 
 ```bash
 compute-md5-gz.sh
@@ -47,7 +47,7 @@ In a directory with `foo.fasta.gz` and `bar.fasta.gz`, the following command:
 compute-md5-gz.sh *.gz > MD5SUMS
 ```
 
-With MD5SUMS as:
+produce the `MD5SUMS` file as:
 
 ```
 b801bda37276a17954fba02e5815c568  foo.fasta
@@ -58,7 +58,7 @@ b801bda37276a17954fba02e5815c568  foo.fasta
 
 #### Help
 
-Run the scripts without arguments to print the help page.
+Run the script without arguments to print the help page.
 
 ```bash
 verify-md5-gz.sh
@@ -81,15 +81,20 @@ Output:
 
 #### Example 
 
-In a directory with foo.fasta.gz and bar.fasta.gz, and a MD5SUMS file (produced from `compute-md5-gz.sh`) the following command:
+In a directory with `foo.fasta.gz` and `bar.fasta.gz`, and a `MD5SUMS` file (produced from `compute-md5-gz.sh`) the following command:
 
 ```bash
 verify-md5-gz.sh MD5SUMS *.gz
 ```
 
-*If the files are conform*, the command will not output anything (just like `diff`). 
+* will not output anything (just like `diff`), *if the files are conform*.
+* will output a csv table with the following columns, *if the files are **not** conform*:
+    - `expected_file`
+    - `expected_md5sum`
+    - `tested_file`
+    - `tested_md5sum`
 
-*If the files are **not** conform*, the command will will produce the following csv table:
+For instance, if the two archives above had different FASTA file within their archive, it will produce the following table:
 
 ```
 expected_file,expected_md5sum,tested_file,tested_md5sum
